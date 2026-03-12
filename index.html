@@ -186,6 +186,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 10px 48px 80px;
+
     position: relative;
     overflow: hidden;
     background: var(--hero-bg);
@@ -1184,7 +1185,10 @@
     nav { padding: 16px 24px; }
     .nav-cta { display: none; }
     .nav-links { display: none; }
-    .hero { padding: 120px 24px 60px; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+    .ticker-wrap { margin-top: 68px; }
+    .hero { padding: 10px 24px 60px; }
     .coming { grid-template-columns: 1fr; padding: 60px 24px; gap: 48px; }
     .giveaway { padding: 60px 24px; }
     .giveaway-steps { grid-template-columns: 1fr; gap: 0; }
@@ -1201,6 +1205,17 @@
     footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; gap: 24px; }
     .footer-links { flex-wrap: wrap; gap: 16px; }
     .hero-rule { display: none; }
+    .about {
+      grid-template-columns: 1fr;
+      padding: 60px 24px;
+      gap: 40px;
+    }
+    .about-right {
+      padding: 32px 24px;
+    }
+    .about-photo-wrap {
+      aspect-ratio: 4 / 3;
+    }
   }
 
   /* ---- TICKER TAPE ---- */
@@ -1250,6 +1265,88 @@
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
+  /* JS overrides this keyframe with exact pixel value at load */
+
+  /* ---- HAMBURGER MENU ---- */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 200;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--brand-gradient);
+    z-index: 150;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .mobile-menu a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .mobile-menu a:hover {
+    border-bottom-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .mobile-menu .mobile-menu-cta {
+    margin-top: 16px;
+    background: var(--white);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border: none;
+    border-bottom: 2px solid transparent;
+  }
 
 </style>
 <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAD2ElEQVR4nN2WTUxcVRiGv++cMz93LsyQ29BYggSDiZniT9KFtqyNGTAWknZCGdpUNxTctKlhClgw0aSmLmq7ELUujOxsWk203bhoYtJSEhJpLJ1BB6ZhQMXL6CBzmXu599x7XExCh5+SmaF14bc8Oed5c97vPT9YW1sDT7LIE6X/FwKsvGWISAgBAMdxhBCPX4BznsvlbNv2+XySJNm2/TgFhBCKooRCzbIsj42NJRK/+v3+/PjmyeX0ABEty1JVta2t7fbt0cHBIU3T8uNbTC4vpo7j6LpuGMbVq9+0tLRcvvxZb29vIBCATfsoM0WEEEVRGGN3705wzru6us+f/0jTspRu9LxMAUTknHNuNTY+zxgDgO7unkikc24ulU/XjgQIIYSQdDp99uxQa2trOp1OpVKc82i0LxRqZowVulSyAKXUMIzFxcX+/oGBgXdnZmaam0NNTfuPHTtaU1Nz/fqNYDCo6/raPkqLKaVU07SGhob29iOnT7+TSCTC4UPz8/OIOD2d4JwPD38yPj4uy7LjOPklJaSIMaaq6vHjb168eMntdk9NTXV0tKdSKb/fzzlnjNXX18diMcYYpXTNpWItytNPnOgeHv6UEASAkZGv4vFYVVUV5xwALMuanJz0eDyF9KIEEJFSqqrqyZOnLlz42DRNxlx37oxeufJ1dfVuy7LWpvl8PiFEseeAIFKCBBER0+l0X1//uXMfmqbpdrsnJiYikY5sNksIKcSt+b5u64+i51YtizseNzONlaGh96LRM3l6PB5rbw/ncrnt77jtBBBxZdXa9+zuo6/tnYjPehtejUbP6LouSVIyORMOH85kMrIsF0PfQoAQ1HTrjQPP9EdefrCwfH92yWvcy2aXKyv9qdRsOHx4YWGhsrIy39hial0PEMG07Nrqip6DL+mr/P2RsfHpzK0fbx6JdF779rvOzkgymSyJvlGAIGq61drUsMvvBYCAz22sWpxI5mLih5EP7senAoFASXQotAgRDNMO1ikH9u5JzC9Rik/tkt8KNf6ZWemLvJL8459ro3Niq5xsXw9PMiJwW9RWVwghTh3aF6xTZMll246LUcPkb1+6+ctcRnIzZ9sXeHM9tEgIcFHyU0J97mllf3CP101v3ftN0y11KTf45Whs9m/JUzIdNqTIEaLr9Rd6Dr74+1/aFzcmc6tWVrc+//5ndUmvkFyOUzIdCi0SAhjFYJ3iCPFgYVldytUoFellnSB63dQuiw4bblMhwDA5AHhc1MWIyR1GCTziu1BkrbMIEWSvCwAECNsRjOBO0FsIAEBhG3fKBoD/w+f3X1cp2GzzSev6AAAAAElFTkSuQmCC">
@@ -1267,7 +1364,18 @@
     <a href="#about" class="nav-link">About</a>
   </div>
   <a href="https://forms.gle/vHuSxnqkL1VJi3Gs6" target="_blank" class="nav-cta">Join the Waitlist</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#coming" class="mobile-nav-link">What's Coming</a>
+  <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
+  <a href="#comparison" class="mobile-nav-link">Why Us</a>
+  <a href="#giveaway" class="mobile-nav-link">Giveaway</a>
+  <a href="#about" class="mobile-nav-link">About</a>
+  <a href="https://forms.gle/vHuSxnqkL1VJi3Gs6" target="_blank" class="mobile-menu-cta">Join the Waitlist</a>
+</div>
 
 <!-- TICKER TAPE -->
 <div class="ticker-wrap" aria-hidden="true">
@@ -1617,6 +1725,47 @@
 </footer>
 
 <script>
+  // ---- TICKER: clone items until track is wider than 2x viewport ----
+  (function() {
+    const track = document.querySelector('.ticker-track');
+    if (!track) return;
+    const fill = function() {
+      while (track.scrollWidth < window.innerWidth * 2.5) {
+        const items = Array.from(track.children);
+        items.forEach(function(item) {
+          track.appendChild(item.cloneNode(true));
+        });
+      }
+      // Now calculate exactly where half the track is and animate to that
+      const halfWidth = track.scrollWidth / 2;
+      const style = document.createElement('style');
+      style.textContent = '@keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-' + halfWidth + 'px); } }';
+      document.head.appendChild(style);
+    };
+    if (document.readyState === 'complete') { fill(); }
+    else { window.addEventListener('load', fill); }
+  })();
+
+  // ---- HAMBURGER MENU ----
+  (function() {
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function() {
+      btn.classList.toggle('open');
+      menu.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    });
+    // Close on link click
+    menu.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        btn.classList.remove('open');
+        menu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  })();
+
   function handleSubmit(btn) {
     const input = btn.previousElementSibling;
     const email = input.value.trim();
