@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — The Build & Launch Co.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --gray-light: #f5f5f5;
+    --gray-mid: #e0e0e0;
+    --gray-text: #888888;
+    --gray-muted: #444444;
+    --navy: #1d3531;
+    --gold: #C9A84C;
+    --gold-light: #e0c070;
+    --gold-muted: rgba(201,168,76,0.15);
+    --brand-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 40%, #C9A84C 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .fade-up    { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+  .fade-up-d1 { animation-delay: 0.1s; }
+  .fade-up-d2 { animation-delay: 0.25s; }
+  .fade-up-d3 { animation-delay: 0.4s; }
+  .fade-up-d4 { animation-delay: 0.55s; }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--brand-gradient);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-link {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color 0.2s ease, border-bottom-color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--white);
+    border-bottom-color: var(--gold);
+  }
+
+  .nav-cta {
+    background: var(--white);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    text-decoration: none;
+    border: 1px solid var(--white);
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+
+  .nav-cta:hover {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+    border-bottom-color: var(--gold);
+  }
+
+  /* ---- TICKER ---- */
+  .ticker-wrap {
+    width: 100%;
+    background: var(--brand-gradient);
+    overflow: hidden;
+    padding: 14px 0;
+    position: relative;
+    z-index: 99;
+    margin-top: 77px;
+  }
+
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 22s linear infinite;
+  }
+
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 40px;
+    white-space: nowrap;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .ticker-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ---- PAGE HERO ---- */
+  .page-hero {
+    padding: 100px 48px 80px;
+    border-bottom: 1px solid var(--gray-mid);
+    max-width: 760px;
+  }
+
+  .page-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray-text);
+    margin-bottom: 20px;
+  }
+
+  .page-eyebrow span {
+    color: var(--gold);
+  }
+
+  .page-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--black);
+    margin-bottom: 20px;
+  }
+
+  .page-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--gray-muted);
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  /* ---- CONTACT LAYOUT ---- */
+  .contact-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 60vh;
+  }
+
+  .contact-left {
+    padding: 80px 48px;
+    border-right: 1px solid var(--gray-mid);
+  }
+
+  .contact-right {
+    padding: 80px 48px;
+    background: var(--gray-light);
+  }
+
+  .contact-block {
+    margin-bottom: 48px;
+  }
+
+  .contact-block-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .contact-block-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+
+  .contact-block-text {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gray-muted);
+    line-height: 1.7;
+  }
+
+  .contact-block-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--black);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: color 0.2s ease;
+  }
+
+  .contact-block-link:hover {
+    color: var(--gold);
+  }
+
+  /* ---- FORM ---- */
+  .form-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+
+  .form-subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gray-muted);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .cf-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cf-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cf-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-muted);
+  }
+
+  .cf-input,
+  .cf-select,
+  .cf-textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--black);
+    background: var(--white);
+    border: 1px solid var(--gray-mid);
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    width: 100%;
+  }
+
+  .cf-input:focus,
+  .cf-select:focus,
+  .cf-textarea:focus {
+    border-color: var(--gold);
+  }
+
+  .cf-textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+
+  .cf-select {
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .cf-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .cf-submit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--brand-gradient);
+    color: var(--white);
+    border: 2px solid transparent;
+    padding: 18px 36px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    align-self: flex-start;
+  }
+
+  .cf-submit:hover {
+    background: #fdf8ee;
+    color: var(--black);
+    border-color: var(--gold);
+  }
+
+  .cf-note {
+    font-size: 11px;
+    color: var(--gray-text);
+    margin-top: 4px;
+  }
+
+  /* ---- DIVIDER ---- */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--gray-mid);
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--black);
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footer-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .footer-link {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover { color: var(--gold); }
+
+  .footer-legal {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.05em;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .page-hero { padding: 60px 24px 48px; }
+    .contact-page { grid-template-columns: 1fr; }
+    .contact-left { padding: 48px 24px; border-right: none; border-bottom: 1px solid var(--gray-mid); }
+    .contact-right { padding: 48px 24px; }
+    .cf-row { grid-template-columns: 1fr; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; gap: 20px; }
+  }
+</style>
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAD2ElEQVR4nN2WTUxcVRiGv++cMz93LsyQ29BYggSDiZniT9KFtqyNGTAWknZCGdpUNxTctKlhClgw0aSmLmq7ELUujOxsWk203bhoYtJSEhJpLJ1BB6ZhQMXL6CBzmXu599x7XExCh5+SmaF14bc8Oed5c97vPT9YW1sDT7LIE6X/FwKsvGWISAgBAMdxhBCPX4BznsvlbNv2+XySJNm2/TgFhBCKooRCzbIsj42NJRK/+v3+/PjmyeX0ABEty1JVta2t7fbt0cHBIU3T8uNbTC4vpo7j6LpuGMbVq9+0tLRcvvxZb29vIBCATfsoM0WEEEVRGGN3705wzru6us+f/0jTspRu9LxMAUTknHNuNTY+zxgDgO7unkikc24ulU/XjgQIIYSQdDp99uxQa2trOp1OpVKc82i0LxRqZowVulSyAKXUMIzFxcX+/oGBgXdnZmaam0NNTfuPHTtaU1Nz/fqNYDCo6/raPkqLKaVU07SGhob29iOnT7+TSCTC4UPz8/OIOD2d4JwPD38yPj4uy7LjOPklJaSIMaaq6vHjb168eMntdk9NTXV0tKdSKb/fzzlnjNXX18diMcYYpXTNpWItytNPnOgeHv6UEASAkZGv4vFYVVUV5xwALMuanJz0eDyF9KIEEJFSqqrqyZOnLlz42DRNxlx37oxeufJ1dfVuy7LWpvl8PiFEseeAIFKCBBER0+l0X1//uXMfmqbpdrsnJiYikY5sNksIKcSt+b5u64+i51YtizseNzONlaGh96LRM3l6PB5rbw/ncrnt77jtBBBxZdXa9+zuo6/tnYjPehtejUbP6LouSVIyORMOH85kMrIsF0PfQoAQ1HTrjQPP9EdefrCwfH92yWvcy2aXKyv9qdRsOHx4YWGhsrIy39hial0PEMG07Nrqip6DL+mr/P2RsfHpzK0fbx6JdF779rvOzkgymSyJvlGAIGq61drUsMvvBYCAz22sWpxI5mLih5EP7senAoFASXQotAgRDNMO1ikH9u5JzC9Rik/tkt8KNf6ZWemLvJL8459ro3Niq5xsXw9PMiJwW9RWVwghTh3aF6xTZMll246LUcPkb1+6+ctcRnIzZ9sXeHM9tEgIcFHyU0J97mllf3CP101v3ftN0y11KTf45Whs9m/JUzIdNqTIEaLr9Rd6Dr74+1/aFzcmc6tWVrc+//5ndUmvkFyOUzIdCi0SAhjFYJ3iCPFgYVldytUoFellnSB63dQuiw4bblMhwDA5AHhc1MWIyR1GCTziu1BkrbMIEWSvCwAECNsRjOBO0FsIAEBhG3fKBoD/w+f3X1cp2GzzSev6AAAAAElFTkSuQmCC">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo" style="display:flex; align-items:center; gap:10px;"><img src="data:image/png;base64,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" alt="logo" style="width:32px; height:32px; border-radius:4px;">Build &amp; Launch Co.</a>
+  <div class="nav-links">
+    <a href="index.html#coming" class="nav-link">What's Coming</a>
+    <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+    <a href="index.html#comparison" class="nav-link">Why Us</a>
+    <a href="index.html#giveaway" class="nav-link">Giveaway</a>
+    <a href="index.html#about" class="nav-link">About</a>
+  </div>
+  <a href="https://forms.gle/vHuSxnqkL1VJi3Gs6" target="_blank" class="nav-cta">Join the Waitlist</a>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>Custom Builds</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Own Your Platform</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>No Monthly Fees</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Done-For-You Launches</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Custom Builds</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Own Your Platform</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>No Monthly Fees</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Done-For-You Launches</span>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero fade-up fade-up-d1">
+  <p class="page-eyebrow">The Build &amp; Launch Co. <span>/ Contact</span></p>
+  <h1 class="page-headline">Let's Talk.</h1>
+  <p class="page-sub">Have a project in mind, a question about what's included, or just want to see if we're the right fit? Reach out — we respond to every message.</p>
+</div>
+
+<!-- CONTACT BODY -->
+<div class="contact-page">
+
+  <div class="contact-left fade-up fade-up-d2">
+
+    <div class="contact-block">
+      <p class="contact-block-label">Email</p>
+      <p class="contact-block-title">Direct Line</p>
+      <p class="contact-block-text">Prefer to keep it simple? Send us an email and we'll get back within 1 business day.</p>
+      <a href="mailto:hello@buildlaunchco.com" class="contact-block-link">hello@buildlaunchco.com</a>
+    </div>
+
+    <div class="contact-block">
+      <p class="contact-block-label">Instagram</p>
+      <p class="contact-block-title">Follow the Build</p>
+      <p class="contact-block-text">Behind-the-scenes, launch updates, and real client builds — all on Instagram.</p>
+      <a href="https://instagram.com/thebuildlaunchco" target="_blank" class="contact-block-link">@thebuildlaunchco</a>
+    </div>
+
+    <div class="contact-block">
+      <p class="contact-block-label">Response Time</p>
+      <p class="contact-block-title">We're Quick.</p>
+      <p class="contact-block-text">We typically respond within 24 hours, Monday through Friday. No bots, no auto-replies — just a real person who actually reads your message.</p>
+    </div>
+
+  </div>
+
+  <div class="contact-right fade-up fade-up-d3">
+    <p class="form-title">Send Us a Message</p>
+    <p class="form-subtitle">Tell us about your project and we'll follow up with next steps. No commitment required.</p>
+
+    <form class="cf-form" onsubmit="handleContactSubmit(event)">
+      <div class="cf-row">
+        <div class="cf-field">
+          <label class="cf-label" for="cf-name">Your Name</label>
+          <input class="cf-input" type="text" id="cf-name" placeholder="Nate" required>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label" for="cf-email">Email Address</label>
+          <input class="cf-input" type="email" id="cf-email" placeholder="you@email.com" required>
+        </div>
+      </div>
+
+      <div class="cf-field">
+        <label class="cf-label" for="cf-interest">I'm Interested In</label>
+        <select class="cf-select" id="cf-interest">
+          <option value="">Select one...</option>
+          <option value="done-for-you">Done-For-You Platform Build</option>
+          <option value="course">Build It Yourself Course</option>
+          <option value="both">Both — Not Sure Yet</option>
+          <option value="giveaway">The Giveaway</option>
+          <option value="other">Something Else</option>
+        </select>
+      </div>
+
+      <div class="cf-field">
+        <label class="cf-label" for="cf-message">Tell Us About Your Project</label>
+        <textarea class="cf-textarea" id="cf-message" placeholder="What do you want to build? What are you selling? Where are you right now?"></textarea>
+      </div>
+
+      <div>
+        <button type="submit" class="cf-submit">Send Message</button>
+        <p class="cf-note" style="margin-top: 12px;">No spam. We'll never share your info.</p>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">
+    <span class="footer-name">Build &amp; Launch Co.</span>
+  </a>
+  <div class="footer-links">
+    <a href="https://instagram.com/thebuildlaunchco" target="_blank" class="footer-link">Instagram</a>
+    <a href="mailto:hello@buildlaunchco.com" class="footer-link">hello@buildlaunchco.com</a>
+    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+  </div>
+  <p class="footer-legal">A Templeton Image LLC Brand &copy; 2025</p>
+</footer>
+
+<script>
+  function handleContactSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.cf-submit');
+    btn.textContent = 'Message Sent!';
+    btn.style.background = '#fdf8ee';
+    btn.style.color = '#0a0a0a';
+    btn.style.borderColor = '#C9A84C';
+    btn.disabled = true;
+  }
+</script>
+
+</body>
+</html>
